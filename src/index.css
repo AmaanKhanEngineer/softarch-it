@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 217 32% 12%;
+  --card-foreground: 210 40% 98%;
+  --popover: 217 32% 12%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 262 83% 58%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 172 66% 50%;
+  --accent-foreground: 222 84% 4.9%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 32% 22%;
+  --input: 217 32% 22%;
+  --ring: 221 83% 53%;
+  --accent-blue: 221 83% 53%;
+  --accent-purple: 262 83% 58%;
+  --accent-teal: 172 66% 50%;
+  --accent-green: 142 71% 45%;
+  --soft-bg: 217 32% 14%;
+  --soft-shadow: 215 25% 10% / 0.5;
+  --radius: 0.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Styles */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button & Card Styles */
+.btn-professional {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background-color: hsl(var(--primary));
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  color: hsl(var(--primary-foreground));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -3px hsl(var(--soft-shadow)), 0 4px 6px -2px hsl(var(--soft-shadow));
+}
+
+.btn-professional:hover {
+  transform: translateY(-2px) scale(1.02);
+  background-color: hsl(var(--primary) / 0.9);
+  box-shadow: 0 15px 30px -5px hsl(var(--primary) / 0.4);
+}
+
+.btn-outline-professional {
+  border-radius: var(--radius);
+  border: 2px solid hsl(var(--primary));
+  background-color: transparent;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  color: hsl(var(--primary));
+  transition: all 0.3s ease;
+}
+
+.btn-outline-professional:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -4px hsl(var(--primary) / 0.3);
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-neon {
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent-purple)));
+  padding: 0.5rem 1.25rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px hsl(var(--primary) / 0.8), 0 0 35px hsl(var(--accent-purple) / 0.5);
+}
+
+.btn-glow {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-glow:after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, hsl(var(--primary)), hsl(var(--accent-purple)), hsl(var(--accent-teal)));
+  filter: blur(14px);
+  opacity: 0.45;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.btn-glow:hover:after {
+  opacity: 0.9;
+}
+
+.card-professional {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: hsl(var(--card));
+  box-shadow: 0 4px 6px -1px hsl(var(--soft-shadow)), 0 2px 4px -1px hsl(var(--soft-shadow));
+  border: 1px solid hsl(var(--border) / 0.5);
+  transition: all 0.3s ease;
+}
+
+.card-professional:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -4px hsl(var(--primary) / 0.15);
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+.card-float {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card-float:hover {
+  transform: translateY(-4px);
+}
+
+/* Background Effects */
+.aurora-bg {
+  background: radial-gradient(at 20% 20%, hsl(var(--accent-purple) / 0.2) 0px, transparent 50%),
+              radial-gradient(at 80% 0%, hsl(var(--accent-teal) / 0.2) 0px, transparent 50%),
+              radial-gradient(at 0% 80%, hsl(var(--primary) / 0.2) 0px, transparent 50%),
+              radial-gradient(at 80% 80%, hsl(var(--accent-purple) / 0.15) 0px, transparent 50%);
+  background-size: 200% 200%;
+  animation: auroraShift 18s ease-in-out infinite;
+}
+
+.text-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+.professional-shadow {
+  box-shadow: 0 10px 25px -3px hsl(var(--soft-shadow)), 0 4px 6px -2px hsl(var(--soft-shadow));
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@keyframes auroraShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px hsl(var(--primary) / 0.5); }
+  100% { box-shadow: 0 0 30px hsl(var(--primary) / 0.8), 0 0 40px hsl(var(--secondary) / 0.6); }
+}
+
+/* High-Contrast Visible Form Controls */
+label, .text-gray-700 {
+  color: #f1f5f9 !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+}
+
+input, textarea, select {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 0.5rem !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #3b82f6 !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4), 0 0 15px rgba(59, 130, 246, 0.3) !important;
+  outline: none !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
+}
