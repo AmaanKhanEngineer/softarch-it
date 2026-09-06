@@ -49,7 +49,7 @@ export const Contact: React.FC = () => {
 
     // 1. Direct Delivery to amaankhan.engr@gmail.com via FormSubmit AJAX
     try {
-      const fsRes = await fetch("https://formsubmit.co/ajax/amaankhan.engr@gmail.com", {
+      const fsRes = await fetch("https://formsubmit.co/ajax/c9e4df9859695724ed4f6a812119e979", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,6 +227,42 @@ export const Contact: React.FC = () => {
                     <h3 className="font-semibold text-foreground font-poppins">WhatsApp</h3>
                     <p className="text-muted-foreground hover:text-accent transition-colors font-poppins">
                       +91 7400378861 - Click to chat
+                    </p>
+                  </div>
+                </div>
+
+                {/* LinkedIn Item */}
+                <div
+                  className="flex items-center space-x-4 cursor-pointer hover:bg-primary/10 p-4 rounded-xl transition-all duration-300 group glass"
+                  onClick={() => window.open("https://www.linkedin.com/in/amaan-khan-49597b282/", "_blank")}
+                >
+                  <div className="flex-shrink-0 w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center group-hover:bg-primary/30 transition-all duration-300 group-hover:animate-glow">
+                    <svg className="w-7 h-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground font-poppins">LinkedIn</h3>
+                    <p className="text-muted-foreground hover:text-primary transition-colors font-poppins">
+                      Amaan Khan • Connect on LinkedIn
+                    </p>
+                  </div>
+                </div>
+
+                {/* GitHub Item */}
+                <div
+                  className="flex items-center space-x-4 cursor-pointer hover:bg-secondary/10 p-4 rounded-xl transition-all duration-300 group glass"
+                  onClick={() => window.open("https://github.com/AmaanKhanEngineer", "_blank")}
+                >
+                  <div className="flex-shrink-0 w-14 h-14 bg-secondary/20 rounded-xl flex items-center justify-center group-hover:bg-secondary/30 transition-all duration-300 group-hover:animate-glow">
+                    <svg className="w-7 h-7 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground font-poppins">GitHub</h3>
+                    <p className="text-muted-foreground hover:text-secondary transition-colors font-poppins">
+                      @AmaanKhanEngineer • View Repositories
                     </p>
                   </div>
                 </div>
