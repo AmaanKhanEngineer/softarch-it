@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <base href="/SoftArch-IT/">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoftArch IT - Amaan Khan | Portfolio & Services</title>
+    <meta name="description" content="Professional portfolio showcasing UI/UX Design, Website & App Development, and Software Testing services. Crafting digital solutions with passion & precision." />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="SoftArch IT - Amaan Khan | Portfolio & Services" />
+    <meta property="og:description" content="Professional portfolio showcasing UI/UX Design, Website & App Development, and Software Testing services. Crafting digital solutions with passion & precision." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Google Fonts Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" crossorigin href="./assets/index.css" />
+
+    <style>
+      /* High-contrast form text & labels */
+      label, .text-gray-700 {
+        color: #f1f5f9 !important;
+        font-weight: 500 !important;
+      }
+      input, textarea {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        -webkit-text-fill-color: #ffffff !important;
+      }
+      input:focus, textarea:focus {
+        border-color: #3b82f6 !important;
+        background-color: rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4), 0 0 15px rgba(59, 130, 246, 0.3) !important;
+        outline: none !important;
+      }
+      input::placeholder, textarea::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
+      }
+    </style>
+  </head>
+  <body class="dark bg-background text-foreground antialiased selection:bg-primary/30 selection:text-white">
+    <div id="root"></div>
+
+    <!-- Email Dispatch & Form Delivery Bridge -->
+    <script>
+      (function() {
+        const originalFetch = window.fetch;
+        window.fetch = async function(...args) {
+          const url = String(args[0] || '');
+          if (url.includes('api.emailjs.com')) {
+            try {
+              let params = {};
+              if (args[1] && args[1].body) {
+                try {
+                  const parsed = JSON.parse(args[1].body);
+                  params = parsed.template_params || {};
+                } catch(e) {}
+              }
+
+              console.log('[Contact Form] Processing inquiry from:', params.from_name);
+
+              // 1. Send direct to amaankhan.engr@gmail.com via FormSubmit AJAX
+              let delivered = false;
+              try {
+                const fsRes = await originalFetch('https://formsubmit.co/ajax/amaankhan.engr@gmail.com', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    name: params.from_name || 'Inquirer',
+                    email: params.from_email || '',
+                    phone: params.phone_number || 'Not provided',
+                    message: params.message || '',
+                    _subject: 'SoftArch IT: New Message from ' + (params.from_name || 'Client'),
+                    _replyto: params.from_email || '',
+                    _template: 'table'
+                  })
+                });
+                if (fsRes.ok) {
+                  delivered = true;
+                  console.log('[FormSubmit] Email successfully sent to amaankhan.engr@gmail.com');
+                }
+              } catch(e) {
+                console.warn('[FormSubmit] Fallback error:', e);
+              }
+
+              // 2. Also log locally to serve.py /api/contact
+              try {
+                originalFetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name: params.from_name,
+                    email: params.from_email,
+                    phone: params.phone_number,
+                    message: params.message
+                  })
+                }).catch(() => {});
+              } catch(e) {}
+
+              // 3. Attempt EmailJS API call
+              try {
+                const ejsRes = await originalFetch(...args);
+                if (ejsRes.ok) return ejsRes;
+              } catch(e) {}
+
+              // If FormSubmit succeeded, return synthetic OK response so the UI displays success toast
+              if (delivered) {
+                return new Response('OK', { status: 200, statusText: 'OK' });
+              }
+            } catch(outerErr) {
+              console.error('[Contact Bridge Error]:', outerErr);
+            }
+          }
+          return originalFetch.apply(this, args);
+        };
+      })();
+    </script>
+
+    <!-- Production Bundle -->
+    <script type="module" crossorigin src="./assets/index.js"></script>
+  </body>
+</html>
