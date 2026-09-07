@@ -3,8 +3,10 @@
   <head>
     <base href="/softarch-it/">
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="./assets/logo.png" />
-    <link rel="apple-touch-icon" href="./assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="./assets/favicon-192.png" />
+    <link rel="icon" href="./assets/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SoftArch IT - Amaan Khan | Portfolio & Services</title>
     <meta name="description" content="Professional portfolio showcasing UI/UX Design, Website & App Development, and Software Testing services. Crafting digital solutions with passion & precision." />
@@ -50,32 +52,61 @@
   <body class="dark bg-background text-foreground antialiased selection:bg-primary/30 selection:text-white">
     <div id="root"></div>
 
-    <!-- Brand Logo Dynamic Navbar Insertion -->
+    <!-- Brand Logo Dynamic Navbar & Footer Insertion -->
     <script>
       (function() {
-        function attachLogo() {
+        function attachBrandLogos() {
+          let attachedNav = false;
+          let attachedFooter = false;
+
+          // 1. Navbar Logo
           const headings = document.querySelectorAll('h1');
           for (let i = 0; i < headings.length; i++) {
             const h = headings[i];
             if (h.textContent.trim().startsWith('SoftArch IT') && !h.parentElement.querySelector('.brand-logo-img')) {
               const img = document.createElement('img');
-              img.src = './assets/logo.png';
+              img.src = './assets/logo-emblem.png';
               img.alt = 'SoftArch IT Logo';
               img.className = 'brand-logo-img';
-              img.style.cssText = 'width:38px;height:38px;border-radius:8px;object-fit:cover;display:inline-block;vertical-align:middle;margin-right:10px;box-shadow:0 0 12px rgba(59,130,246,0.6);border:1px solid rgba(59,130,246,0.4);cursor:pointer;';
+              img.style.cssText = 'width:42px;height:42px;border-radius:10px;object-fit:contain;display:inline-block;vertical-align:middle;margin-right:12px;filter:drop-shadow(0 0 10px rgba(0,166,255,0.5));cursor:pointer;';
+              img.onclick = function() { window.scrollTo({ top: 0, behavior: 'smooth' }); };
               h.parentElement.style.display = 'flex';
               h.parentElement.style.alignItems = 'center';
               h.parentElement.insertBefore(img, h);
-              return true;
+              attachedNav = true;
+              break;
             }
           }
-          return false;
+
+          // 2. Footer Logo
+          const footHeadings = document.querySelectorAll('h3');
+          for (let i = 0; i < footHeadings.length; i++) {
+            const fh = footHeadings[i];
+            if (fh.textContent.trim().startsWith('SoftArch IT') && !fh.parentElement.querySelector('.footer-brand-logo-img')) {
+              const fimg = document.createElement('img');
+              fimg.src = './assets/logo-emblem.png';
+              fimg.alt = 'SoftArch IT Logo';
+              fimg.className = 'footer-brand-logo-img';
+              fimg.style.cssText = 'width:36px;height:36px;object-fit:contain;display:inline-block;vertical-align:middle;margin-right:10px;filter:drop-shadow(0 0 8px rgba(0,166,255,0.4));';
+              const wrap = document.createElement('div');
+              wrap.style.cssText = 'display:flex;align-items:center;margin-bottom:12px;';
+              fh.parentElement.insertBefore(wrap, fh);
+              wrap.appendChild(fimg);
+              wrap.appendChild(fh);
+              fh.style.marginBottom = '0';
+              attachedFooter = true;
+              break;
+            }
+          }
+
+          return attachedNav && attachedFooter;
         }
-        if (!attachLogo()) {
+
+        if (!attachBrandLogos()) {
           const timer = setInterval(function() {
-            if (attachLogo()) clearInterval(timer);
+            if (attachBrandLogos()) clearInterval(timer);
           }, 80);
-          setTimeout(function() { clearInterval(timer); }, 6000);
+          setTimeout(function() { clearInterval(timer); }, 8000);
         }
       })();
     </script>
